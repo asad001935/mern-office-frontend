@@ -10,6 +10,14 @@ export const getRestaurants = async () => {
   return readPayload(res);
 };
 
+export const addMenuItem = async (restaurantId, data) => {
+  const res = await http.post(
+    `/api/admin/restaurant/${restaurantId}/menu`,
+    data,
+  );
+  return readPayload(res);
+};
+
 export const getRestaurantItems = async () => {
   const res = await http.get("/api/restaurant/items");
   return readPayload(res);

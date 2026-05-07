@@ -3,6 +3,7 @@ import CreateRestaurant from "./CreateRestaurant";
 import RestaurantList from "./RestaurantList";
 import { getRestaurants } from "../../../api/restaurantApi";
 import { toast } from "react-toastify";
+import AddMenuItem from "./AddMenuItem";
 
 function Restaurant() {
   const [activeTab, setActiveTab] = useState("list");
@@ -38,12 +39,16 @@ function Restaurant() {
 
         <div className="bg-white p-4 shadow rounded">
           <p className="text-gray-500">Active Restaurants</p>
-          <p className="text-2xl font-bold text-green-500">{activeRestaurants.length}</p>
+          <p className="text-2xl font-bold text-green-500">
+            {activeRestaurants.length}
+          </p>
         </div>
 
         <div className="bg-white p-4 shadow rounded">
           <p className="text-gray-500">Inactive Restaurants</p>
-          <p className="text-2xl font-bold text-rose-500">{inactiveRestaurants.length}</p>
+          <p className="text-2xl font-bold text-rose-500">
+            {inactiveRestaurants.length}
+          </p>
         </div>
       </div>
 
@@ -70,13 +75,30 @@ function Restaurant() {
         >
           Create Restaurant
         </button>
+
+        <button
+          onClick={() => setActiveTab("menu")}
+          className={`cursor-pointer px-4 py-2 rounded font-medium transition ${
+            activeTab === "menu"
+              ? "bg-blue-600 text-white"
+              : "bg-gray-200 hover:bg-gray-300"
+          }`}
+        >
+          Manage Menu
+        </button>
       </div>
 
       {/* 🔹 CONTENT */}
-      {activeTab === "list" && <RestaurantList data={data} refresh={fetchRestaurants} />}
+      {activeTab === "list" && (
+        <RestaurantList data={data} refresh={fetchRestaurants} />
+      )}
 
       {activeTab === "create" && (
         <CreateRestaurant refresh={fetchRestaurants} />
+      )}
+
+      {activeTab === "menu" && (
+        <AddMenuItem restaurants={data} refresh={fetchRestaurants} />
       )}
     </div>
   );
