@@ -2,6 +2,7 @@ import { useState } from "react";
 import { createEmployee } from "../../../api/employeeApi";
 import { toast } from "react-toastify";
 import { User, Mail, Lock } from "lucide-react";
+import Loader from "../../../components/Loader";
 
 function CreateEmployee({ refresh }) {
   const [form, setForm] = useState({
@@ -31,84 +32,97 @@ function CreateEmployee({ refresh }) {
   };
 
   return (
-    <div className="flex justify-center mt-6">
-      <form
-        onSubmit={handleSubmit}
-        className="w-full max-w-lg bg-white p-8 rounded-2xl shadow-lg border dark:bg-slate-800 dark:border-slate-700"
-      >
-        {/* 🔹 Heading */}
-        <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center dark:text-white">
-          Create Employee
-        </h2>
+    <>
+      {loading && <Loader text="Creating employee..." />}
 
-        {/* 🔹 Username */}
-        <div className="mb-4">
-          <label className="block text-sm font-semibold text-gray-600 mb-1 dark:text-slate-300">
-            Username
-          </label>
-          <div className="flex items-center border rounded-lg px-3 py-2 bg-gray-50 focus-within:ring-2 focus-within:ring-blue-500 dark:bg-slate-700 dark:border-slate-600">
-            <User className="text-gray-400 mr-2 dark:text-slate-400" size={18} />
-            <input
-              type="text"
-              placeholder="Enter username"
-              value={form.userName}
-              onChange={(e) => setForm({ ...form, userName: e.target.value })}
-              className="w-full bg-transparent focus:outline-none dark:text-white dark:placeholder:text-slate-400"
-              required
-            />
-          </div>
-        </div>
-
-        {/* 🔹 Email */}
-        <div className="mb-4">
-          <label className="block text-sm font-semibold text-gray-600 mb-1 dark:text-slate-300">
-            Email
-          </label>
-          <div className="flex items-center border rounded-lg px-3 py-2 bg-gray-50 focus-within:ring-2 focus-within:ring-blue-500 dark:bg-slate-700 dark:border-slate-600">
-            <Mail className="text-gray-400 mr-2 dark:text-slate-400" size={18} />
-            <input
-              type="email"
-              placeholder="Enter email"
-              value={form.email}
-              onChange={(e) => setForm({ ...form, email: e.target.value })}
-              className="w-full bg-transparent focus:outline-none dark:text-white dark:placeholder:text-slate-400"
-              required
-            />
-          </div>
-        </div>
-
-        {/* 🔹 Password */}
-        <div className="mb-6">
-          <label className="block text-sm font-semibold text-gray-600 mb-1 dark:text-slate-300">
-            Password
-          </label>
-          <div className="flex items-center border rounded-lg px-3 py-2 bg-gray-50 focus-within:ring-2 focus-within:ring-blue-500 dark:bg-slate-700 dark:border-slate-600">
-            <Lock className="text-gray-400 mr-2 dark:text-slate-400" size={18} />
-            <input
-              type="password"
-              placeholder="Enter password"
-              value={form.password}
-              onChange={(e) => setForm({ ...form, password: e.target.value })}
-              className="w-full bg-transparent focus:outline-none dark:text-white dark:placeholder:text-slate-400"
-              required
-            />
-          </div>
-        </div>
-
-        {/* 🔹 Button */}
-        <button
-          type="submit"
-          disabled={loading}
-          className={`w-full py-2 rounded-lg font-semibold text-white transition cursor-pointer ${
-            loading
-              ? "bg-blue-400 cursor-not-allowed"
-              : "bg-blue-600 hover:bg-blue-700"
-          }`}
+      <div className="flex justify-center mt-6">
+        <form
+          onSubmit={handleSubmit}
+          className="w-full max-w-lg bg-white p-8 rounded-2xl shadow-lg border dark:bg-slate-800 dark:border-slate-700"
         >
-          {loading ? "Creating..." : "Create Employee"}
-        </button>
-      </form>
-    </div>
+          {/* 🔹 Heading */}
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center dark:text-white">
+            Create Employee
+          </h2>
+
+          {/* 🔹 Username */}
+          <div className="mb-4">
+            <label className="block text-sm font-semibold text-gray-600 mb-1 dark:text-slate-300">
+              Username
+            </label>
+            <div className="flex items-center border rounded-lg px-3 py-2 bg-gray-50 focus-within:ring-2 focus-within:ring-blue-500 dark:bg-slate-700 dark:border-slate-600">
+              <User
+                className="text-gray-400 mr-2 dark:text-slate-400"
+                size={18}
+              />
+              <input
+                type="text"
+                placeholder="Enter username"
+                value={form.userName}
+                onChange={(e) => setForm({ ...form, userName: e.target.value })}
+                className="w-full bg-transparent focus:outline-none dark:text-white dark:placeholder:text-slate-400"
+                required
+              />
+            </div>
+          </div>
+
+          {/* 🔹 Email */}
+          <div className="mb-4">
+            <label className="block text-sm font-semibold text-gray-600 mb-1 dark:text-slate-300">
+              Email
+            </label>
+            <div className="flex items-center border rounded-lg px-3 py-2 bg-gray-50 focus-within:ring-2 focus-within:ring-blue-500 dark:bg-slate-700 dark:border-slate-600">
+              <Mail
+                className="text-gray-400 mr-2 dark:text-slate-400"
+                size={18}
+              />
+              <input
+                type="email"
+                placeholder="Enter email"
+                value={form.email}
+                onChange={(e) => setForm({ ...form, email: e.target.value })}
+                className="w-full bg-transparent focus:outline-none dark:text-white dark:placeholder:text-slate-400"
+                required
+              />
+            </div>
+          </div>
+
+          {/* 🔹 Password */}
+          <div className="mb-6">
+            <label className="block text-sm font-semibold text-gray-600 mb-1 dark:text-slate-300">
+              Password
+            </label>
+            <div className="flex items-center border rounded-lg px-3 py-2 bg-gray-50 focus-within:ring-2 focus-within:ring-blue-500 dark:bg-slate-700 dark:border-slate-600">
+              <Lock
+                className="text-gray-400 mr-2 dark:text-slate-400"
+                size={18}
+              />
+              <input
+                type="password"
+                placeholder="Enter password"
+                value={form.password}
+                onChange={(e) => setForm({ ...form, password: e.target.value })}
+                className="w-full bg-transparent focus:outline-none dark:text-white dark:placeholder:text-slate-400"
+                required
+              />
+            </div>
+          </div>
+
+          {/* 🔹 Button */}
+          <button
+            type="submit"
+            disabled={loading}
+            className={`w-full py-2 rounded-lg font-semibold text-white transition cursor-pointer ${
+              loading
+                ? "bg-blue-400 cursor-not-allowed"
+                : "bg-blue-600 hover:bg-blue-700"
+            }`}
+          >
+            {loading ? "Creating..." : "Create Employee"}
+          </button>
+        </form>
+      </div>
+    </>
   );
 }
 

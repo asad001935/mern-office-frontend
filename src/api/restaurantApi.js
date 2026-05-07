@@ -15,6 +15,11 @@ export const getRestaurantItems = async () => {
   return readPayload(res);
 };
 
+export const getRestaurantById = async (restaurantId) => {
+  const res = await http.get(`/api/admin/restaurant/${restaurantId}`);
+  return readPayload(res);
+};
+
 export const deactivateRestaurant = async (id) => {
   const res = await http.patch(`/api/admin/restaurant/${id}/deactivate`);
   return res.data;
